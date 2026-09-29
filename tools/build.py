@@ -168,7 +168,7 @@ def layout(lang, page, *, title, desc, body, crumbs=None, keywords=KEYWORDS_B, j
     nav = "".join(
         f'<li><a href="{url(lang, p)}"{cur if p == page else ""}>{u["nav"][p]}</a></li>'
         for p in PAGES)
-    og_img = SITE + (og_image or "/assets/img/shop-entrance-497.jpg")
+    og_img = SITE + (og_image or "/assets/img/banner-1200.jpg")
     ld = [LOCAL_BUSINESS(lang)] if page == "home" and not noindex else []
     if crumbs:
         ld.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
@@ -212,11 +212,12 @@ def layout(lang, page, *, title, desc, body, crumbs=None, keywords=KEYWORDS_B, j
 <meta property="og:image" content="{og_img}">
 <meta property="og:locale" content="{u['og_locale']}">
 <meta property="og:locale:alternate" content="{alt_locale}">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#102c46">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#03204a">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="/assets/css/site.css?v={ASSET_V['css']}">
 <script>document.documentElement.className="js"</script>
 <script src="/assets/js/site.js?v={ASSET_V['js']}" defer></script>
@@ -237,7 +238,7 @@ def layout(lang, page, *, title, desc, body, crumbs=None, keywords=KEYWORDS_B, j
 <header class="site-header">
   <div class="wrap site-header__inner">
     <a class="brand" href="{url(lang, 'home')}" aria-label="{u['home_link']}">
-      <picture><source type="image/webp" srcset="/assets/img/logo.webp"><img src="/assets/img/logo.png" width="432" height="56" alt="{u['brand_alt']}"></picture>
+      <picture><source type="image/webp" srcset="/assets/img/logo-400.webp 1x, /assets/img/logo-800.webp 2x"><img src="/assets/img/logo-400.png" srcset="/assets/img/logo-800.png 2x" width="400" height="59" alt="{u['brand_alt']}"></picture>
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="nav-toggle__bars" aria-hidden="true"></span>{u['menu']}</button>
     <nav class="site-nav" id="site-nav" aria-label="{u['main_nav']}"><ul>{nav}</ul></nav>
@@ -290,8 +291,8 @@ def LOCAL_BUSINESS(lang):
         "@id": SITE + "/#organization",
         "name": "Confidence Aviation, Inc.",
         "url": SITE + url(lang, "home"),
-        "logo": SITE + "/assets/img/logo.png",
-        "image": SITE + "/assets/img/shop-entrance-497.jpg",
+        "logo": SITE + "/assets/img/logo-800.png",
+        "image": SITE + "/assets/img/banner-1200.jpg",
         "description": ("FAA / EASA certified repair station offering overhaul and repair capabilities. "
                         "FAA repair station No. V9DR072Y.") if lang == "en" else (
                         "Estación reparadora certificada por la FAA / EASA. Estación reparadora FAA No. V9DR072Y."),
@@ -441,13 +442,19 @@ SPEC = {  # key facts printed on each document; values verbatim, labels translat
 
 
 # ---------------------------------------------------------------- pages: English
+BANNER = ('<picture><source type="image/webp" srcset="/assets/img/banner-800.webp 800w, /assets/img/banner-1200.webp 1200w, '
+          '/assets/img/banner-2000.webp 2000w" sizes="100vw"><img src="/assets/img/banner-1200.jpg" '
+          'srcset="/assets/img/banner-800.jpg 800w, /assets/img/banner-1200.jpg 1200w, /assets/img/banner-2000.jpg 2000w" '
+          'sizes="100vw" width="2000" height="667" alt="Confidence Aviation, Inc." fetchpriority="high" decoding="async"></picture>')
+
+
 def en_home():
     body = f"""
 <section class="hero on-dark" aria-labelledby="hero-title">
+  <h1 class="hero__banner" id="hero-title">{BANNER}</h1>
   <div class="wrap hero__grid">
     <div>
       <span class="eyebrow">Avionics &amp; Instruments · FAA Certified Repair Station</span>
-      <h1 id="hero-title">Confidence Aviation, Inc.</h1>
       <p class="cert-line">FAA repair station No. V9DR072Y</p>
       <p class="lead">We are an FAA / EASA certified repair station offering overhaul and repair capabilities.</p>
       <div class="actions">
@@ -772,10 +779,10 @@ def en_contact():
 def es_home():
     body = f"""
 <section class="hero on-dark" aria-labelledby="hero-title">
+  <h1 class="hero__banner" id="hero-title">{BANNER}</h1>
   <div class="wrap hero__grid">
     <div>
       <span class="eyebrow">Aviónica e instrumentos · Estación reparadora certificada por la FAA</span>
-      <h1 id="hero-title">Confidence Aviation, Inc.</h1>
       <p class="cert-line">Estación reparadora FAA No. V9DR072Y</p>
       <p class="lead">Somos una estación reparadora certificada por la FAA / EASA que ofrece capacidades de reparación general (overhaul) y reparación.</p>
       <div class="actions">
@@ -1115,6 +1122,11 @@ def main():
         "index.htm": redirect_stub("./"),
         "sitemap.xml": sitemap(),
         "robots.txt": ROBOTS,
+        "site.webmanifest": json.dumps({
+            "name": "Confidence Aviation, Inc.", "short_name": "Confidence Aviation",
+            "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+                      {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}],
+            "theme_color": "#03204a", "background_color": "#ffffff", "display": "browser"}, indent=1),
     }
     for name, content in pages.items():
         if name.endswith((".html", ".htm")) and name not in ("404.html", "index.htm"):

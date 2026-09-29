@@ -5,7 +5,8 @@ Reads the untouched originals from legacy/original-site/ and writes:
   * public/<original filename>        – byte-identical copy (keeps every old image URL alive)
   * public/assets/img/<slug>-<w>.webp  – WebP at the original width and a small thumbnail
   * public/assets/img/<slug>-<w>.jpg|png – fallback for browsers without WebP
-  * public/assets/img/logo.png|webp    – the original logo, recomposed from the header tiles
+  * public/assets/img/logo-*, banner-*  – current brand logo and banner (src/brand/)
+  * public/favicon.*, icon-*.png, apple-touch-icon.png – icons from the logo's globe mark
 
 Nothing is upscaled: the originals are small (<=600 px), so the largest output is the
 original size. Requires Pillow (pip install pillow).
@@ -69,23 +70,35 @@ def save_pair(im, slug, width, alpha, manifest):
         {"w": im.width, "h": im.height, "fallback": fallback})
 
 
-def build_logo():
-    """Recompose the logo exactly as it appeared in the original page header."""
-    html = (SRC / "index.htm").read_text(encoding="utf-8")
-    tiles = re.findall(r'top:(\d+); left:(\d+); width:\d+; height:\d+;"><img name="picture\d*" '
-                       r'width="\d+" height="\d+"\s*src="(ca_\d+\.gif)"', html)
-    canvas = Image.new("RGB", (761, 190), "white")
-    for top, left, name in tiles:
-        if int(top) < 95:
-            canvas.paste(Image.open(SRC / name).convert("RGB"), (int(left), int(top)))
-    logo = canvas.crop((0, 0, 432, 56))
-    logo.save(OUT / "logo.png", "PNG", optimize=True)
-    logo.save(OUT / "logo.webp", "WEBP", quality=90, method=6)
-    # the globe mark alone, used as favicon / touch icon
-    mark = canvas.crop((8, 0, 64, 56))
-    mark.save(PUB / "apple-touch-icon.png")
-    mark.resize((32, 32), Image.LANCZOS).save(PUB / "favicon.png")
-    mark.save(PUB / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+def build_brand():
+    """Current brand assets supplied by the owner (src/brand/): transparent logo for the
+    header, globe mark for icons, sky banner for the home page hero and social sharing.
+    The original 2003 logo remains available at its original tile URLs (ca_01-ca_04.gif)."""
+    brand = ROOT / "src" / "brand"
+    logo = Image.open(brand / "logo.png").convert("RGBA")
+    visible = logo.getchannel("A").point(lambda a: 255 if a > 40 else 0)
+    l, t, r, b = visible.getbbox()                          # trim the (near-)transparent margin
+    logo = logo.crop((max(l - 4, 0), max(t - 4, 0), r + 4, b + 4))
+    for w in (400, 800):
+        im = logo.resize((w, round(logo.height * w / logo.width)), Image.LANCZOS)
+        im.save(OUT / f"logo-{w}.png", "PNG", optimize=True)
+        im.save(OUT / f"logo-{w}.webp", "WEBP", quality=90, method=6)
+    print("logo size at 400w:", round(logo.height * 400 / logo.width))
+
+    src = Image.open(brand / "logo.png").convert("RGBA")
+    globe = src.crop((27, 83, 145, 201))                  # the globe mark only
+    for size, name in ((32, "favicon.png"), (192, "icon-192.png"), (512, "icon-512.png")):
+        globe.resize((size, size), Image.LANCZOS).save(PUB / name)
+    globe.resize((48, 48), Image.LANCZOS).save(PUB / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    touch = Image.new("RGBA", (180, 180), (255, 255, 255, 255))   # iOS needs an opaque icon
+    touch.alpha_composite(globe.resize((150, 150), Image.LANCZOS), (15, 15))
+    touch.convert("RGB").save(PUB / "apple-touch-icon.png")
+
+    banner = Image.open(brand / "banner.webp").convert("RGB")
+    for w in (800, 1200, 2000):
+        im = banner.resize((w, round(banner.height * w / banner.width)), Image.LANCZOS)
+        im.save(OUT / f"banner-{w}.webp", "WEBP", quality=80, method=6)
+        im.save(OUT / f"banner-{w}.jpg", "JPEG", quality=82, optimize=True, progressive=True)
 
 
 def main():
@@ -104,7 +117,7 @@ def main():
         if im.width > THUMB * 1.3:
             save_pair(im, slug, THUMB, alpha, manifest)
         manifest[slug]["original"] = name
-    build_logo()
+    build_brand()
     (ROOT / "src" / "images.json").write_text(json.dumps(manifest, indent=1))
     print(f"{len(manifest)} images processed")
 

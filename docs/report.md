@@ -75,7 +75,7 @@ Every sentence from the original site is reproduced **verbatim** on the new site
 | "©2003 - 2011 Confidence Aviation, Inc." (home) / "©2003 Confidence Aviation, Inc." (other pages) | "©2003 - 2011 Confidence Aviation, Inc." in the footer of every page (the fuller notice includes the shorter one) |
 | "Created by wintertek" → http://www.wintertek.com | Footer: "Original website created by wintertek", same link |
 | Hidden "Language Option — English / Spanish" | A working language switcher in the top bar and footer, labelled "Language Option" |
-| Logo (header tiles `ca_01`–`ca_04`) | Recomposed from the original tiles, unaltered, as the site logo on every page; the globe mark is used as the favicon |
+| Logo (header tiles `ca_01`–`ca_04`) | **Replaced at the owner's request** by the current brand logo (header of every page) and brand banner (home page). The original 2003 logo tiles remain at their original URLs and in `legacy/original-site/` |
 | Decorative banner tiles (sky, contrails, globe artwork, no text) | Original files kept at their URLs. The new design does not show them. They contain no information |
 
 **Verification.** `python3 tools/audit.py` runs four checks:
@@ -88,6 +88,8 @@ Every sentence from the original site is reproduced **verbatim** on the new site
 Result: **PASS — 100% of original content accounted for.** The audit also runs before every GitHub Pages deployment.
 
 ## New features
+- **Current branding:** the brand logo is in the header of every page. The brand banner is the home page heading and the image shown when the site is shared on social media. The globe from the logo is the browser-tab, home-screen and app icon (`favicon.ico`, `icon-192/512.png`, `apple-touch-icon.png`, `site.webmanifest`).
+- **Colour scheme taken from the brand assets:** navy `#03204A` and grey from the logo lettering, gold `#C0904F` from the globe for buttons and accent rules, and sky blue from the banner for light backgrounds. Every text and background pairing meets WCAG AA contrast.
 - A responsive layout for phones, tablets and desktops (checked at 320, 360, 390, 414, 768, 1024, 1280, 1920 and 2560 px wide: no horizontal scrolling on any page).
 - Complete Spanish version under `/es/` with a working language switcher on every page, linked page-to-page.
 - A shop-tour gallery with a keyboard-accessible lightbox (arrow keys, Escape, focus returned to the thumbnail, image counter, captions). Without JavaScript, the thumbnails simply open the full-size images.
@@ -116,7 +118,8 @@ Result: **PASS — 100% of original content accounted for.** The audit also runs
 - The old URLs are unchanged, so the site keeps its existing search ranking; there are no location pages, invented service pages or keyword stuffing.
 
 ## Performance
-- Lighthouse (mobile) scored 100 for Performance, 100 for Accessibility, 100 for Best Practices and 100 for SEO on the home, Shop Tour, Certificates and Spanish contact pages. LCP was 1.0–2.0 s, CLS 0 and total blocking time 0 ms, with 65–183 KB transferred per page.
+- Lighthouse (mobile) scored 100 for Performance, 100 for Accessibility, 100 for Best Practices and 100 for SEO on the English and Spanish home pages (with the brand banner), Shop Tour, Certificates and Spanish contact pages. LCP was 1.0–2.0 s, CLS 0 and total blocking time 0 ms, with 65–183 KB transferred per page.
+- The home banner is served at 800, 1200 or 2000 px wide depending on the screen, as WebP or JPEG (15–47 KB in WebP); the logo is served at 1× and 2× for sharp display on high-resolution screens.
 - Images:
   - WebP with JPEG/PNG fallbacks and `srcset`/`sizes`.
   - Thumbnail sizes for the gallery.
@@ -161,6 +164,7 @@ Everything below is **preserved exactly as published**. I haven't changed any of
 12. **Transcription legibility.** In the EASA certificate scan the regulation number ("Regulation (EC) No 1592/2002") is partly illegible; this is noted on the page. "Hernandez, Alexis R." on the Operations Specifications was also read from a low-resolution scan.
 13. **Copyright line "©2003 - 2011".** Kept as published; you may want to update the year range.
 14. **"Created by wintertek" credit and link.** Kept as published; remove it if no longer wanted.
+15. **New logo and banner.** These were supplied during this project and are used as provided. Confirm they are the final artwork. A vector (SVG) version of the logo would look sharper at every size if one is available.
 
 ## Assumptions
 - The crawl on 2026-09-29 is the complete public website. Every page, image and document reachable by links (including JavaScript rollover image names) was fetched. No PDFs or other downloadable documents exist on the site.
