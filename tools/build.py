@@ -168,7 +168,7 @@ def layout(lang, page, *, title, desc, body, crumbs=None, keywords=KEYWORDS_B, j
     nav = "".join(
         f'<li><a href="{url(lang, p)}"{cur if p == page else ""}>{u["nav"][p]}</a></li>'
         for p in PAGES)
-    og_img = SITE + (og_image or "/assets/img/banner-1200.jpg")
+    og_img = SITE + (og_image or "/assets/img/shop-entrance-497.jpg")
     ld = [LOCAL_BUSINESS(lang)] if page == "home" and not noindex else []
     if crumbs:
         ld.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
@@ -212,7 +212,7 @@ def layout(lang, page, *, title, desc, body, crumbs=None, keywords=KEYWORDS_B, j
 <meta property="og:image" content="{og_img}">
 <meta property="og:locale" content="{u['og_locale']}">
 <meta property="og:locale:alternate" content="{alt_locale}">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#03204a">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
@@ -292,7 +292,7 @@ def LOCAL_BUSINESS(lang):
         "name": "Confidence Aviation, Inc.",
         "url": SITE + url(lang, "home"),
         "logo": SITE + "/assets/img/logo-800.png",
-        "image": SITE + "/assets/img/banner-1200.jpg",
+        "image": SITE + "/assets/img/shop-entrance-497.jpg",
         "description": ("FAA / EASA certified repair station offering overhaul and repair capabilities. "
                         "FAA repair station No. V9DR072Y.") if lang == "en" else (
                         "Estación reparadora certificada por la FAA / EASA. Estación reparadora FAA No. V9DR072Y."),
@@ -442,19 +442,13 @@ SPEC = {  # key facts printed on each document; values verbatim, labels translat
 
 
 # ---------------------------------------------------------------- pages: English
-BANNER = ('<picture><source type="image/webp" srcset="/assets/img/banner-800.webp 800w, /assets/img/banner-1200.webp 1200w, '
-          '/assets/img/banner-2000.webp 2000w" sizes="100vw"><img src="/assets/img/banner-1200.jpg" '
-          'srcset="/assets/img/banner-800.jpg 800w, /assets/img/banner-1200.jpg 1200w, /assets/img/banner-2000.jpg 2000w" '
-          'sizes="100vw" width="2000" height="667" alt="Confidence Aviation, Inc." fetchpriority="high" decoding="async"></picture>')
-
-
 def en_home():
     body = f"""
 <section class="hero on-dark" aria-labelledby="hero-title">
-  <h1 class="hero__banner" id="hero-title">{BANNER}</h1>
   <div class="wrap hero__grid">
     <div>
       <span class="eyebrow">Avionics &amp; Instruments · FAA Certified Repair Station</span>
+      <h1 id="hero-title">Confidence Aviation, Inc.</h1>
       <p class="cert-line">FAA repair station No. V9DR072Y</p>
       <p class="lead">We are an FAA / EASA certified repair station offering overhaul and repair capabilities.</p>
       <div class="actions">
@@ -779,10 +773,10 @@ def en_contact():
 def es_home():
     body = f"""
 <section class="hero on-dark" aria-labelledby="hero-title">
-  <h1 class="hero__banner" id="hero-title">{BANNER}</h1>
   <div class="wrap hero__grid">
     <div>
       <span class="eyebrow">Aviónica e instrumentos · Estación reparadora certificada por la FAA</span>
+      <h1 id="hero-title">Confidence Aviation, Inc.</h1>
       <p class="cert-line">Estación reparadora FAA No. V9DR072Y</p>
       <p class="lead">Somos una estación reparadora certificada por la FAA / EASA que ofrece capacidades de reparación general (overhaul) y reparación.</p>
       <div class="actions">

@@ -32,7 +32,7 @@
      "assets/img/logo-400.png"
     ]
    },
-   "note": "At the owner's request (2026-09-29) the header now uses the current brand logo (src/brand/logo.png) and the home page uses the brand banner. The original 2003 logo is preserved: its tiles remain at their original URLs (ca_01.gif-ca_04.gif) and in legacy/original-site/."
+   "note": "At the owner's request (2026-09-29) the header uses the current brand logo (src/brand/logo.png, transparent background) and its globe is the site icon. The original 2003 logo is preserved: its tiles remain at their original URLs (ca_01.gif-ca_04.gif) and in legacy/original-site/."
   },
   {
    "id": "G-02",

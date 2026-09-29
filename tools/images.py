@@ -5,7 +5,7 @@ Reads the untouched originals from legacy/original-site/ and writes:
   * public/<original filename>        – byte-identical copy (keeps every old image URL alive)
   * public/assets/img/<slug>-<w>.webp  – WebP at the original width and a small thumbnail
   * public/assets/img/<slug>-<w>.jpg|png – fallback for browsers without WebP
-  * public/assets/img/logo-*, banner-*  – current brand logo and banner (src/brand/)
+  * public/assets/img/logo-*           – current brand logo (src/brand/logo.png)
   * public/favicon.*, icon-*.png, apple-touch-icon.png – icons from the logo's globe mark
 
 Nothing is upscaled: the originals are small (<=600 px), so the largest output is the
@@ -71,8 +71,8 @@ def save_pair(im, slug, width, alpha, manifest):
 
 
 def build_brand():
-    """Current brand assets supplied by the owner (src/brand/): transparent logo for the
-    header, globe mark for icons, sky banner for the home page hero and social sharing.
+    """Current brand logo supplied by the owner (src/brand/logo.png, transparent background):
+    the header logo, and the globe mark for the site icons.
     The original 2003 logo remains available at its original tile URLs (ca_01-ca_04.gif)."""
     brand = ROOT / "src" / "brand"
     logo = Image.open(brand / "logo.png").convert("RGBA")
@@ -94,11 +94,6 @@ def build_brand():
     touch.alpha_composite(globe.resize((150, 150), Image.LANCZOS), (15, 15))
     touch.convert("RGB").save(PUB / "apple-touch-icon.png")
 
-    banner = Image.open(brand / "banner.webp").convert("RGB")
-    for w in (800, 1200, 2000):
-        im = banner.resize((w, round(banner.height * w / banner.width)), Image.LANCZOS)
-        im.save(OUT / f"banner-{w}.webp", "WEBP", quality=80, method=6)
-        im.save(OUT / f"banner-{w}.jpg", "JPEG", quality=82, optimize=True, progressive=True)
 
 
 def main():

@@ -1,10 +1,10 @@
 /* Confidence Aviation — site stylesheet
    Design: restrained, technical. Brand navy / grey / white with globe-gold accent
-   (from the brand logo and banner), system fonts, square edges, no animation beyond
+   (from the brand logo), system fonts, square edges, no animation beyond
    short colour transitions (disabled under prefers-reduced-motion). */
 
 :root {
-  /* Brand palette, sampled from the Confidence Aviation logo and banner */
+  /* Brand palette, sampled from the Confidence Aviation logo */
   --ink: #021530;           /* deepest navy: top bar, footer */
   --navy: #03204a;          /* logo "CONFIDENCE" navy; 16:1 on white */
   --navy-2: #0b3566;
@@ -12,7 +12,7 @@
   --steel-2: #7a7a7a;       /* logo grey as drawn (decorative / large text only) */
   --line: #d9e2ec;
   --line-dark: #1c3a66;
-  --paper: #f2f6fa;         /* banner sky, lightest tint */
+  --paper: #f2f6fa;         /* light sky tint */
   --white: #fff;
   --gold: #c0904f;          /* globe gold: borders, rules, underlines */
   --gold-light: #e0b879;    /* gold on navy backgrounds: 8.6:1 */
@@ -22,7 +22,7 @@
   --btn: #c9974f;           /* gold button with navy text: 6.1:1 */
   --btn-hover: #d9b073;
   --focus: #1d6fd6;
-  --sky: #9cc3e6;           /* banner sky blue, on dark backgrounds: 8.7:1 on navy */
+  --sky: #9cc3e6;           /* sky blue, on dark backgrounds: 8.7:1 on navy */
 
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
@@ -181,10 +181,6 @@ a:hover { color: var(--accent-dark); }
 .dataplate dd .mono { color: var(--sky); }
 
 @media (max-width: 860px) { .hero__grid { grid-template-columns: minmax(0, 1fr); } }
-
-/* Brand banner (home page). It is the page's <h1>; alt text carries the company name. */
-.hero__banner { margin: 0; background: #dfe9f4; border-bottom: 3px solid var(--gold); line-height: 0; }
-.hero__banner img { width: 100%; height: min(33.35vw, 460px); object-fit: cover; object-position: center 46%; }
 
 /* ---------- Page head (sub pages) ---------- */
 .page-head { background: var(--paper); border-bottom: 1px solid var(--line); padding-block: clamp(1.75rem, 4vw, 3rem); }
