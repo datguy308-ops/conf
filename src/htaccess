@@ -1,0 +1,53 @@
+# Confidence Aviation – Apache / Plesk configuration (copied to public/.htaccess by tools/build.py)
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset utf-8
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # --- Canonical host (www + https) --------------------------------------------------
+  # Left disabled on purpose: enable only after confirming the hosting panel is not
+  # already doing this (a duplicate rule behind the Plesk nginx proxy can loop).
+  # RewriteCond %{HTTPS} !=on [OR]
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^ https://www.confidenceaviation.com%{REQUEST_URI} [L,R=301]
+
+  # --- Old URL: /index.htm was an exact duplicate of the home page -------------------
+  # THE_REQUEST checks what the browser asked for, so the DirectoryIndex lookup of "/"
+  # can never trigger this rule (no redirect loop).
+  RewriteCond %{THE_REQUEST} \s/+index\.html?[?\s] [NC]
+  RewriteRule ^index\.html?$ / [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/+es/index\.html?[?\s] [NC]
+  RewriteRule ^es/index\.html?$ /es/ [R=301,L]
+</IfModule>
+
+# Every other original URL (about.htm, capabilities.htm, certificates.htm, shop.htm,
+# contact.htm and every original image file) is served unchanged – no redirect needed.
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  <FilesMatch "\.(html?)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # CSS/JS are referenced with a content hash (?v=...), so they can be cached for a year.
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(jpe?g|png|gif|webp|ico|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/xml text/xml text/plain image/svg+xml application/ld+json
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType application/xml .xml
+</IfModule>

@@ -1,0 +1,60 @@
+CENTERPG {width: 608}
+.global {
+margin:0px; padding:0px; background-color:#FFFFFF; font-family:Arial, Helvetica, sans-serif;
+color:#000000; font-size:12px; text-align:left;
+}
+a:link {} a:visited {} a:hover {text-decoration:underline} a:active {text-decoration:underline}
+p, ul {margin-top:0px} p, ul {margin:1em 0} ul {margin-left: 0; padding-left: 40px;}
+li {margin-top: 0; margin-bottom: 0}
+
+.default-style {
+overflow:hidden; box-sizing:border-box; -moz-box-sizing:border-box; font-size:10px;
+}
+.default-style a:hover {text-decoration:underline} .default-style a:active {text-decoration:underline}
+
+.plain-text {
+overflow:auto; box-sizing:border-box; -moz-box-sizing:border-box;
+}
+.plain-text a:hover {text-decoration:underline} .plain-text a:active {text-decoration:underline}
+
+.heading {
+padding:2; border-width:1; border-style:solid; border-color:#D8D8D8; font-weight:bold;
+font-size:16px; text-align:center; overflow:hidden; box-sizing:border-box;
+-moz-box-sizing:border-box;
+}
+.heading a:hover {text-decoration:underline} .heading a:active {text-decoration:underline}
+
+.subheading {
+font-weight:bold; text-align:left; overflow:hidden; box-sizing:border-box;
+-moz-box-sizing:border-box;
+}
+.subheading a:hover {text-decoration:underline} .subheading a:active {text-decoration:underline}
+
+.whitelink {
+font-family:Arial, Helvetica, sans-serif; color:#FFFFFF; overflow:hidden;
+box-sizing:border-box; -moz-box-sizing:border-box;
+}
+.whitelink a:link {color:#FFFFFF} .whitelink a:hover {color:#0000FF; text-decoration:underline}
+.whitelink a:active {text-decoration:underline}
+
+.blacklink {
+font-family:Arial, Helvetica, sans-serif; overflow:hidden; box-sizing:border-box;
+-moz-box-sizing:border-box;
+}
+.blacklink a:link {color:#000000} .blacklink a:hover {color:#FFFF00; text-decoration:underline}
+.blacklink a:active {text-decoration:underline}
+
+.bluelink2yellow {
+font-family:Arial, Helvetica, sans-serif; overflow:auto; box-sizing:border-box;
+-moz-box-sizing:border-box;
+}
+.bluelink2yellow a:link {color:#0D00FF} .bluelink2yellow a:hover {color:#FFFF00; text-decoration:underline}
+.bluelink2yellow a:active {text-decoration:underline}
+
+.title {
+font-family:Arial, Helvetica, sans-serif; font-weight:bold; color:#FFFFFF;
+font-size:16px; text-align:center; overflow:hidden; box-sizing:border-box;
+-moz-box-sizing:border-box;
+}
+.title a:hover {text-decoration:underline} .title a:active {text-decoration:underline}
+

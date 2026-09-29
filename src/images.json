@@ -1,0 +1,271 @@
+{
+ "air-agency-certificate": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 545,
+    "h": 751,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 441,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "air_agency_certificate.gif"
+ },
+ "easa-approval-certificate": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 596,
+    "h": 775,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 416,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "easa-cert.jpg"
+ },
+ "operations-specifications": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 527,
+    "h": 748,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 454,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "operations_specifications.gif"
+ },
+ "alex-and-robert": {
+  "alpha": true,
+  "sizes": [
+   {
+    "w": 289,
+    "h": 201,
+    "fallback": "png"
+   }
+  ],
+  "original": "alex&robert-trans.gif"
+ },
+ "hugo-in-the-shop": {
+  "alpha": true,
+  "sizes": [
+   {
+    "w": 232,
+    "h": 300,
+    "fallback": "png"
+   }
+  ],
+  "original": "hugointheshop.png"
+ },
+ "roberto-in-shop": {
+  "alpha": true,
+  "sizes": [
+   {
+    "w": 407,
+    "h": 283,
+    "fallback": "png"
+   }
+  ],
+  "original": "robertoinshop.png"
+ },
+ "reception": {
+  "alpha": true,
+  "sizes": [
+   {
+    "w": 248,
+    "h": 228,
+    "fallback": "png"
+   }
+  ],
+  "original": "reception.gif"
+ },
+ "shop-entrance": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 333,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 214,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_entrance-1.jpg"
+ },
+ "shop-dme-transponder-bench": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 335,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 216,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_dme-transponder_bench-.jpg"
+ },
+ "shop-radar-bench-1": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 333,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 214,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_radar_bench-1.jpg"
+ },
+ "shop-nav-comm-bench": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 335,
+    "h": 497,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_nav-comm_bench-1.jpg"
+ },
+ "shop-radar-bench-2": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 335,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 216,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_radar_bench-2.jpg"
+ },
+ "shop-dme-altimeter-benches": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 335,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 216,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_dme-transponder&altime.jpg"
+ },
+ "shop-radar-nav-comm-bench": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 337,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 217,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_radar&nav-comm_bench-1.jpg"
+ },
+ "shop-altimeter-test-set": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 334,
+    "h": 497,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_altimeter_testset-1.jpg"
+ },
+ "shop-hf-antenna": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 333,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 214,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_equip_hf_antenna_.jpg"
+ },
+ "shop-radar-indicators": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 330,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 212,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_equip_radar_indicat1.jpg"
+ },
+ "shop-large-radar-system": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 330,
+    "h": 497,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_equip_radar_large-1.jpg"
+ },
+ "shop-radio-altimeters": {
+  "alpha": false,
+  "sizes": [
+   {
+    "w": 497,
+    "h": 334,
+    "fallback": "jpg"
+   },
+   {
+    "w": 320,
+    "h": 215,
+    "fallback": "jpg"
+   }
+  ],
+  "original": "shop_equip_radio_altimeter2.jpg"
+ }
+}
