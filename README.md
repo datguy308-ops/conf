@@ -1,12 +1,29 @@
 # Confidence Aviation website
 
-Rebuild of https://www.confidenceaviation.com/ — **work in progress**.
+Rebuild of https://www.confidenceaviation.com/ — modern design, English + Spanish,
+with **every piece of the original site's content preserved** (verified by `tools/audit.py`).
 
-* `public/` — the deployable static site (upload its contents, including `.htaccess`, to the web root).
-* `legacy/original-site/` — verbatim snapshot of the original website (source of truth, not deployed).
-* `tools/inventory.json` — every piece of original content and where it lives in the new site.
-* `tools/images.py` → `tools/build.py` — regenerate images and pages (`pip install pillow`, Python 3.11+).
+* **`public/`** – the finished static website. To go live, upload its contents (including the
+  hidden `.htaccess` file) to the web root of the existing host.
+* `docs/report.md` – final report: pages, URL migration, content mapping, SEO, performance,
+  accessibility, and **items the owner should verify**.
+* `docs/content-inventory.md` – checklist of every piece of original content and where it now lives.
+* `legacy/original-site/` – verbatim snapshot of the original website (source of truth, not deployed).
 
-All original URLs (`about.htm`, `capabilities.htm`, `certificates.htm`, `shop.htm`,
-`contact.htm`, every original image) are kept; `/index.htm` 301-redirects to `/`.
-Spanish pages live under `/es/`.
+## Previewing
+
+Pushes to this branch deploy `public/` to GitHub Pages (see `.github/workflows/pages.yml`).
+The preview is marked `noindex` so it never competes with the real domain in search results.
+
+Locally: `cd public && python3 -m http.server 8000`, then open http://localhost:8000/.
+
+## Rebuilding
+
+```sh
+pip install pillow
+python3 tools/images.py   # optimised images from legacy/original-site/
+python3 tools/build.py    # pages, sitemap, robots.txt, .htaccess -> public/
+python3 tools/audit.py    # content-preservation + link audit (must print PASS)
+```
+
+Page content lives in `tools/build.py`; styles in `src/assets/css/site.css`; scripts in `src/assets/js/site.js`.

@@ -377,3 +377,9 @@ input:focus-visible, textarea:focus-visible { outline: 3px solid var(--focus); o
   details { border: 0; }
   details > *:not(summary) { display: block; }
 }
+
+/* Transcribed document tables: wrap instead of scrolling on small screens */
+.transcript table { table-layout: fixed; }
+.transcript th, .transcript td { overflow-wrap: anywhere; hyphens: auto; }
+@media (max-width: 560px) { .transcript th, .transcript td { padding: .45rem .4rem; font-size: .85rem; } }
+@media (max-width: 480px) { .contact-list li { grid-template-columns: minmax(0, 1fr); gap: 0; } }

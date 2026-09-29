@@ -133,7 +133,7 @@ UI = {
         "f_contact": "Contact", "f_pages": "Pages", "f_lang": "Language Option",
         "credit": 'Original website created by <a href="http://www.wintertek.com" rel="noopener" target="_blank">wintertek</a>',
         "breadcrumb": "Breadcrumb", "repair_no": "FAA Repair Station No.",
-        "og_locale": "en_US",
+        "og_locale": "en_US", "quick": "Quick contact and language",
     },
     "es": {
         "nav": {"home": "Inicio", "about": "Nosotros", "capabilities": "Capacidades",
@@ -146,7 +146,7 @@ UI = {
         "f_contact": "Contacto", "f_pages": "Páginas", "f_lang": "Idioma",
         "credit": 'Sitio web original creado por <a href="http://www.wintertek.com" rel="noopener" target="_blank">wintertek</a>',
         "breadcrumb": "Ruta de navegación", "repair_no": "Estación reparadora FAA No.",
-        "og_locale": "es_ES",
+        "og_locale": "es_ES", "quick": "Contacto rápido e idioma",
     },
 }
 
@@ -224,7 +224,7 @@ def layout(lang, page, *, title, desc, body, crumbs=None, keywords=KEYWORDS_B, j
 </head>
 <body>
 <a class="skip-link" href="#main">{u['skip']}</a>
-<div class="topbar">
+<aside class="topbar" aria-label="{u['quick']}">
   <div class="wrap topbar__inner">
     <p class="topbar__ids"><span>{u['repair_no']} <span class="mono">V9DR072Y</span></span><span>EASA <span class="mono">EASA.145.5139</span></span></p>
     <div class="topbar__contact">
@@ -233,7 +233,7 @@ def layout(lang, page, *, title, desc, body, crumbs=None, keywords=KEYWORDS_B, j
       {lang_switch(lang, page)}
     </div>
   </div>
-</div>
+</aside>
 <header class="site-header">
   <div class="wrap site-header__inner">
     <a class="brand" href="{url(lang, 'home')}" aria-label="{u['home_link']}">
@@ -317,24 +317,25 @@ def ratings_list(lang):
                 ("Radio Class 2:", "Navigational Equipment", "(unlimited)"),
                 ("Radio Class 3:", "Radar Equipment", "(unlimited)")]
         return '<ul class="ratings">' + "".join(
-            f'<li><span class="r-class">{c}</span><span class="r-scope">{s}</span><span class="r-limit">{l}</span></li>'
+            f'<li><span class="r-class">{c}</span> <span class="r-scope">{s}</span> <span class="r-limit">{l}</span></li>'
             for c, s, l in rows) + "</ul>"
     rows = [("Radio Class 1:", "Equipos de comunicaciones", "Communications Equipment"),
             ("Radio Class 2:", "Equipos de navegación", "Navigational Equipment"),
             ("Radio Class 3:", "Equipos de radar", "Radar Equipment")]
     return '<ul class="ratings">' + "".join(
-        f'<li><span class="r-class" lang="en">{c}</span><span class="r-scope">{s} <span lang="en">({en})</span></span>'
+        f'<li><span class="r-class" lang="en">{c}</span> <span class="r-scope">{s} <span lang="en">({en})</span></span> '
         f'<span class="r-limit">(ilimitada / <span lang="en">unlimited</span>)</span></li>'
         for c, s, en in rows) + "</ul>"
 
 
 def gallery(lang, items, group, *, compact=False, link_to=None, with_ids=False):
     out = []
-    for slug, cap_en, cap_es, alt_en, alt_es in items:
+    for i, (slug, cap_en, cap_es, alt_en, alt_es) in enumerate(items):
         cap = cap_en if lang == "en" else cap_es
         alt = alt_en if lang == "en" else alt_es
         sizes = "(max-width: 560px) 100vw, (max-width: 1100px) 33vw, 280px"
-        pic = picture(slug, alt, sizes=sizes)
+        above_fold = with_ids and i < 4  # first gallery row on the Shop Tour page is the LCP area
+        pic = picture(slug, alt, sizes=sizes, lazy=not above_fold, priority=with_ids and i == 0)
         href = link_to + "#" + slug if link_to else full_src(slug)
         lb = "" if link_to else f' data-lightbox="{group}" data-caption="{e(cap)}"'
         idattr = f' id="{slug}"' if with_ids else ""
@@ -1052,15 +1053,26 @@ def not_found():
     return out.replace(' aria-current="page"', "")  # no nav item is current on the 404 page
 
 
+def relativize(page_html, depth):
+    """Make site-internal links relative so the site works at any base path
+    (domain root, GitHub Pages project URL, local web server). Absolute
+    https:// URLs (canonical, hreflang, Open Graph, JSON-LD) are untouched."""
+    import re
+    prefix = "../" * depth
+    out = re.sub(r'((?:href|src|srcset|action)=")/(?!/)', lambda m: m.group(1) + prefix, page_html)
+    out = re.sub(r'(srcset="[^"]*)', lambda m: m.group(1).replace(", /assets", ", " + prefix + "assets"), out)
+    return out.replace('href=""', 'href="./"')
+
+
 def redirect_stub(target):
     """Static fallback for hosts that ignore .htaccess: the old URL keeps working."""
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <title>Confidence Aviation - AVIONICS &amp; INSTRUMENTS - FAA Certified Repair Station</title>
-<link rel="canonical" href="{SITE}{target}">
+<link rel="canonical" href="{SITE}/">
 <meta name="robots" content="noindex, follow">
 <meta http-equiv="refresh" content="0; url={target}">
-</head><body><p>This page has moved to <a href="{target}">{SITE}{target}</a>.</p></body></html>
+</head><body><p>This page has moved to <a href="{target}">{SITE}/</a>.</p></body></html>
 """
 
 
@@ -1100,11 +1112,13 @@ def main():
         "es/index.html": es_home(), "es/about.htm": es_about(), "es/capabilities.htm": es_capabilities(),
         "es/certificates.htm": es_certificates(), "es/shop.htm": es_shop(), "es/contact.htm": es_contact(),
         "404.html": not_found(),
-        "index.htm": redirect_stub("/"),
+        "index.htm": redirect_stub("./"),
         "sitemap.xml": sitemap(),
         "robots.txt": ROBOTS,
     }
     for name, content in pages.items():
+        if name.endswith((".html", ".htm")) and name not in ("404.html", "index.htm"):
+            content = relativize(content, name.count("/"))
         (PUB / name).write_text(content, encoding="utf-8")
     shutil.copy2(SRC / "htaccess", PUB / ".htaccess")
     print(f"built {len(pages)} files into {PUB.relative_to(ROOT)}/")
