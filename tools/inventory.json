@@ -78,12 +78,7 @@
    "original": "©2003 - 2011 Confidence Aviation, Inc.",
    "en": {
     "pages": [
-     "index.html",
-     "about.htm",
-     "capabilities.htm",
-     "certificates.htm",
-     "shop.htm",
-     "contact.htm"
+     "about.htm"
     ],
     "text": [
      "©2003 - 2011 Confidence Aviation, Inc."
@@ -91,19 +86,20 @@
    },
    "es": {
     "pages": [
-     "es/index.html"
+     "es/about.htm"
     ],
     "text": [
      "©2003 - 2011 Confidence Aviation, Inc."
     ]
-   }
+   },
+   "note": "Original footer notice kept verbatim on About → 'Website history' (as the notice of the previous website). The footer now shows a current notice '© 2003–<year> Confidence Aviation, Inc.' (optimization pass)."
   },
   {
    "id": "G-04",
    "src": "about/capabilities/certificates/shop/contact",
    "kind": "footer",
    "original": "©2003 Confidence Aviation, Inc.",
-   "note": "Subset of G-03 (same notice without the end year); represented by G-03 on every page.",
+   "note": "Sub-page variant of G-03; the original start year 2003 is kept in the About 'Website history' notice and in the current footer notice.",
    "en": {
     "pages": [
      "about.htm"
@@ -128,8 +124,18 @@
    "original": "Created by wintertek -> http://www.wintertek.com (target _blank)",
    "en": {
     "pages": [
-     "index.html",
-     "contact.htm"
+     "about.htm"
+    ],
+    "text": [
+     "created by wintertek"
+    ],
+    "attrs": [
+     "http://www.wintertek.com"
+    ]
+   },
+   "es": {
+    "pages": [
+     "es/about.htm"
     ],
     "text": [
      "wintertek"
@@ -138,17 +144,7 @@
      "http://www.wintertek.com"
     ]
    },
-   "es": {
-    "pages": [
-     "es/index.html"
-    ],
-    "text": [
-     "wintertek"
-    ],
-    "attrs": [
-     "http://www.wintertek.com"
-    ]
-   }
+   "note": "Moved from the footer to About → 'Website history' (credit for the previous website), same link."
   },
   {
    "id": "G-06",
@@ -193,7 +189,13 @@
     "pages": [
      "index.html"
     ],
-    "title": "Confidence Aviation - AVIONICS & INSTRUMENTS - FAA Certified Repair Station"
+    "titlecontains": [
+     "Confidence Aviation",
+     "FAA Repair Station"
+    ],
+    "text": [
+     "Avionics & Instruments — FAA Certified Repair Station"
+    ]
    },
    "es": {
     "pages": [
@@ -202,7 +204,8 @@
     "titlecontains": [
      "Confidence Aviation"
     ]
-   }
+   },
+   "note": "Page <title> rewritten for search (optimization pass). The same facts are visible on every page: footer tagline 'Avionics & Instruments — FAA Certified Repair Station'."
   },
   {
    "id": "G-08",
@@ -213,18 +216,20 @@
     "pages": [
      "index.html"
     ],
-    "meta": [
-     "Avionics Shop Miami Florida, OEM Alternative. Boeing, Bendix/King, Honeywell, Sperry, Collins."
+    "text": [
+     "OEM alternative repairs for Boeing, Bendix/King, Honeywell, Sperry and Collins aircraft instrument panels and valves",
+     "Miami, Florida"
     ]
    },
    "es": {
     "pages": [
      "es/index.html"
     ],
-    "meta": [
-     "Boeing, Bendix/King, Honeywell, Sperry, Collins"
+    "text": [
+     "Boeing, Bendix/King, Honeywell, Sperry y Collins"
     ]
-   }
+   },
+   "note": "Home meta description rewritten (optimization pass). Its facts are visible: Miami, Florida; OEM alternative; Boeing, Bendix/King, Honeywell, Sperry, Collins (home 'What we repair' and Capabilities)."
   },
   {
    "id": "G-09",
@@ -257,18 +262,29 @@
     "pages": [
      "capabilities.htm"
     ],
+    "text": [
+     "Aircraft instruments, instrument panels and valves",
+     "OEM alternative repair station",
+     "Boeing",
+     "Bendix/King",
+     "Honeywell",
+     "Sperry",
+     "Collins"
+    ],
     "meta": [
-     "OEM Alternative repair station for Boeing, Bendix/King, Honeywell, Sperry, Collins aircraft instruments and valves."
+     "Boeing, Bendix/King, Honeywell, Sperry and Collins"
     ]
    },
    "es": {
     "pages": [
      "es/capabilities.htm"
     ],
-    "meta": [
-     "Boeing, Bendix/King, Honeywell, Sperry, Collins"
+    "text": [
+     "Instrumentos, paneles de instrumentos y válvulas de aeronaves",
+     "Estación reparadora alternativa al OEM"
     ]
-   }
+   },
+   "note": "Meta description rewritten (optimization pass). Its facts are visible on Capabilities → 'Avionics & Instruments': scope 'Aircraft instruments, instrument panels and valves', basis 'OEM alternative repair station', Miami, Florida, and the five manufacturers."
   },
   {
    "id": "G-11",
@@ -490,7 +506,7 @@
    "src": "index.htm",
    "kind": "widget",
    "original": "News feed widget: FAA newsroom press releases RSS (https://www.faa.gov/newsroom/press_releases/rss) via jobisite.com script",
-   "note": "Third-party script replaced by a direct link to the same FAA feed.",
+   "note": "Third-party script replaced by a direct link to the same FAA feed. Now linked from the footer of every page ('Aviation Headlines').",
    "en": {
     "pages": [
      "index.html"

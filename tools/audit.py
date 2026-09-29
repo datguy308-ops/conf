@@ -189,7 +189,9 @@ def main():
 
     # 4. independent reverse check: every text fragment and alt/title in the ORIGINAL html
     #    must occur somewhere in the new English site (case/whitespace-insensitive).
-    site_text = " ".join(load(r).vis + " " + html.unescape(load(r).raw) for r in pages if not r.startswith("es/")).lower()
+    # Only real English content pages count (not the redirect stub or the 404 page).
+    site_text = " ".join(load(r).vis + " " + html.unescape(load(r).raw) for r in pages
+                         if not r.startswith("es/") and r not in ("index.htm", "404.html")).lower()
     reverse_fail = []
     for f in sorted((ROOT / "legacy" / "original-site").glob("*.htm")):
         raw = f.read_text(encoding="utf-8")
@@ -209,6 +211,23 @@ def main():
             "sub-page footer notice; represented by the home page's '©2003 - 2011 Confidence Aviation, Inc.' "
             "which now appears in the footer of every page (inventory G-03/G-04)",
     }
+    # Documented rewrites: SEO metadata (page title / meta descriptions) rewritten in the
+    # optimization pass. Each fact they contained is checked as visible text elsewhere.
+    REWRITTEN = {
+        "Confidence Aviation - AVIONICS & INSTRUMENTS - FAA Certified Repair Station":
+            ("title", ["Avionics & Instruments — FAA Certified Repair Station"]),
+        "Avionics Shop Miami Florida, OEM Alternative. Boeing, Bendix/King, Honeywell, Sperry, Collins.":
+            ("meta description", ["Avionics repair shop Miami Florida", "OEM alternative repairs for Boeing, Bendix/King, Honeywell, Sperry, Collins"]),
+        "Avionics shop Miami Florida. OEM Alternative repair station for Boeing, Bendix/King, Honeywell, Sperry, Collins aircraft instruments and valves.":
+            ("meta description", ["Avionics repair shop Miami Florida", "Aircraft instruments, instrument panels and valves",
+                                  "OEM alternative repair station", "Boeing, Bendix/King, Honeywell, Sperry, Collins"]),
+    }
+    for orig, (_kind, facts) in REWRITTEN.items():
+        for f in facts:
+            if norm(f).lower() not in site_text:
+                reverse_fail.append(f"rewrite of {orig!r}: fact no longer visible: {f!r}")
+    rewritten = sorted({r for r in reverse_fail if r.split(": ", 1)[-1].strip("'") in REWRITTEN})
+    reverse_fail = sorted(set(reverse_fail) - set(rewritten))
     consolidated = sorted({r for r in reverse_fail if r.split(": ", 1)[1].strip("'") in CONSOLIDATED})
     reverse_fail = sorted(set(reverse_fail) - set(consolidated))
 
@@ -231,6 +250,8 @@ def main():
         print(f"  FAIL {r}")
     for r in consolidated:
         print(f"  consolidated (documented): {r}")
+    for r in rewritten:
+        print(f"  rewritten metadata (documented; facts verified visible): {r}")
     print("RESULT:", "PASS — 100% of original content accounted for" if ok else "FAIL")
     sys.exit(0 if ok else 1)
 

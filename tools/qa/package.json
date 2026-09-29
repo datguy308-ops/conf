@@ -1,0 +1,7 @@
+{
+  "name": "confidence-aviation-qa",
+  "private": true,
+  "description": "Browser QA for the built site in public/ (see tools/qa/qa.js)",
+  "scripts": { "qa": "node qa.js" },
+  "devDependencies": { "playwright": "1.56.0", "axe-core": "4.10.3" }
+}

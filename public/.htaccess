@@ -31,6 +31,12 @@ ErrorDocument 404 /404.html
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  # No third-party scripts, styles, fonts or frames are used. The one inline script (sets
+  # class="js" on <html>) is allowed by its hash; tools/build.py must keep it byte-identical.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-cvlem2Rlcb+inScVb7910PMAU98gRDEfAIUVUKXOWd4='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; form-action mailto:; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+  # Enable only after HTTPS is confirmed on both www and non-www hosts:
+  # Header always set Strict-Transport-Security "max-age=31536000"
   <FilesMatch "\.(html?)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
